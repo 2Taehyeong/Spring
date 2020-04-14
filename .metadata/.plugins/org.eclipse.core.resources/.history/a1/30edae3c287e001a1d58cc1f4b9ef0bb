@@ -1,0 +1,5 @@
+package kr.inhatc.spring.board.controller;
+
+public class BoardController {
+
+}

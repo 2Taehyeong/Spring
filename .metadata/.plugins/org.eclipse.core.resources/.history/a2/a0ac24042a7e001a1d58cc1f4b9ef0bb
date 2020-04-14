@@ -1,0 +1,6 @@
+# DB 설정
+spring.datasource.hikari.driver-class-name=oracle.jdbc.driver.OracleDriver
+spring.datasource.hikari.jdbc-url=jdbc:oracle:thin:@127.0.0.1:1521:xe
+
+# 포트설정
+server.port = 18080
