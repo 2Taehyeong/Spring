@@ -28,7 +28,9 @@
 				<!-- 조건을 만족할때 if -->
 				<tr th:if="${#lists.size(list)} > 0" th:each="vo : ${list}">
 					<td th:text="${vo.boardIdx}"></td>
-					<td th:text="${vo.title}"></td>
+					<td class="title">
+						<a href="/board/boardDetail?boardIdx=" th:attrappend="href=${vo.boardIdx}" th:text="${vo.title}"></a>
+					</td>
 					<td th:text="${vo.hitCnt}"></td>
 					<td th:text="${vo.createDatetime}"></td>
 				</tr>
@@ -38,6 +40,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<a href="/board/boardWrite" class="btn btn-default">글쓰기</a>
 	</div>
 </body>
 </html>

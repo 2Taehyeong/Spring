@@ -17,5 +17,5 @@ public class BoardDto {
 	private int hitCnt;
 	private String creatorId; 
 	private String createDatetime;
-	 
+
 }

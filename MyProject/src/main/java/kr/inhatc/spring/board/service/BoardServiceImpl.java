@@ -18,5 +18,16 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDto> boardList() {
 		return boardMapper.boardList();
 	}
-	
+
+	@Override
+	public void boardInsert(BoardDto board) {
+		boardMapper.boardInsert(board);
+	}
+
+	@Override
+	public BoardDto boardDetail(int boardIdx) {
+		BoardDto board = boardMapper.boardDetail(boardIdx);
+		return board;
+	}
+
 }
