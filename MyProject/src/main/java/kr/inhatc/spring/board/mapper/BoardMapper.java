@@ -16,4 +16,10 @@ public interface BoardMapper {
 
 	BoardDto boardDetail(int boardIdx);
 
+	void boardUpdate(BoardDto board);
+
+	void updateHit(int boardIdx);
+
+	void boardDelete(int boardIdx);
+
 }

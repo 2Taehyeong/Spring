@@ -28,4 +28,24 @@
 		FROM T_BOARD
 		WHERE delete_yn = 'N' AND board_idx = #{boardIdx}
 	</select>
+	
+	<update id="boardUpdate" parameterType="kr.inhatc.spring.board.dto.BoardDto">
+		Update t_board
+		SET title = #{title},
+			contents = #{contents},
+			create_datetime = sysdate,
+			creator_id = 'admin'
+		WHERE board_idx = #{boardIdx}
+	</update>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE t_board
+		SET hit_cnt = hit_cnt + 1
+		WHERE board_idx = #{boardIdx}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM t_board
+		WHERE board_idx = #{boardIdx}
+	</delete>
 </mapper>

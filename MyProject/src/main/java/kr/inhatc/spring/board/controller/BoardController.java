@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +41,7 @@ public class BoardController {
 	@RequestMapping("/board/boardList")
 	public String boardList(Model model) {
 		List<BoardDto> list = boardService.boardList();
-		System.out.println("=========>" + list.size());
+//		System.out.println("=========>" + list.size());
 		model.addAttribute("list", list);
 		return "board/boardList";
 	}
@@ -58,5 +62,18 @@ public class BoardController {
 		BoardDto board = boardService.boardDetail(boardIdx);
 		model.addAttribute("board", board);
 		return "board/boardDetail";
+	}
+	
+	@RequestMapping("/board/boardUpdate")
+	public String boardUpdate(BoardDto board) {
+		boardService.boardUpdate(board);
+		return "redirect:/board/boardList";
+	}
+	
+	@GetMapping @PostMapping @DeleteMapping @PutMapping 
+	@RequestMapping("/board/boardDelete")
+	public String boardDelete(@RequestParam("boardIdx") int boardIdx) {
+		boardService.boardDelete(boardIdx);
+		return "redirect:/board/boardList";
 	}
 }

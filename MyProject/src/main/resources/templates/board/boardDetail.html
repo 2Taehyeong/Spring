@@ -9,8 +9,8 @@
 	<div class="container">
 		<h2>게시판 상세</h2>
 		
-		<form id="frm" name="frm" method="POST" action="">
-			<table class="table">
+		<form id="frm" name="frm" method="POST">
+			<table class="board_detail">
 				<colgroup>
 					<col width="15%"/>
 					<col width="35"/>
@@ -34,20 +34,46 @@
 					<tr>
 						<th scope="row">제목</th>
 						<td colspan="3">
-							<input type="text" id="title" name="title" th:value="${board.title}" class="form-control">
+							<input type="text" id="title" name="title" th:value="${board.title}">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="4" class="view_text">
-							<textarea title="내용" id="contents" name="contents" th:text="${board.contents}" class="form-control" rows="10"></textarea>
+							<textarea title="내용" id="contents" name="contents" th:text="${board.contents}"></textarea>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="button" id="list" value="목록으로" class="btn btn-default">
-			<input type="button" id="edit" value="수정하기" class="btn btn-default">
-			<input type="button" id="delete" value="삭제하기" class="btn btn-default">
+			<input type="hidden" name="boardIdx" th:value="${board.boardIdx}">
 		</form>
+		
+		<input type="button" id="list" value="목록으로" class="btn">
+		<input type="button" id="edit" value="수정하기" class="btn">
+		<input type="button" id="delete" value="삭제하기" class="btn">
 	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.5.0.slim.min.js"
+			integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs="
+			crossorigin="anonymous">
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#list").on("click", function(){
+				location.href = "/board/boardList"
+			});
+			
+			$("#edit").on("click", function(){
+				var frm = $("#frm")[0];
+				frm.action = "/board/boardUpdate";
+				frm.submit();
+			});
+			
+			$("#delete").on("click", function(){
+				var frm = $("#frm")[0];
+				frm.action = "/board/boardDelete";
+				frm.submit();
+			});
+		});
+	</script>
 </body>
 </html>
