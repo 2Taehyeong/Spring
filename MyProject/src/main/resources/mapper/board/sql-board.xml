@@ -48,4 +48,26 @@
 		DELETE FROM t_board
 		WHERE board_idx = #{boardIdx}
 	</delete>
+	
+	<insert id="boardFileInsert" parameterType="kr.inhatc.spring.board.dto.FileDto">
+		INSERT INTO t_file(
+			IDX,
+			BOARD_IDX,
+			ORIGINAL_FILE_NAME,
+			STORED_FILE_PATH,
+			FILE_SIZE,
+			CREATOR_ID,
+			CREATE_DATETIME
+		)
+		SELECT file_seq.nextval, A.* FROM(
+			<foreach item="item" collection="list" separator="UNION ALL">
+				SELECT #{item.boardIdx} as board_idx,
+						#{item.originalFileName} as original_file_name,
+						#{item.storedFilePath} as stored_file_path,
+						#{item.fileSize} as file_size,
+						'admin',
+						sysdate
+				FROM DUAL
+			</foreach>) A
+	</insert>
 </mapper>
