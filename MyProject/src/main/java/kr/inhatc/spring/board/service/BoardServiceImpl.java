@@ -62,6 +62,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardDto boardDetail(int boardIdx) {
 		BoardDto board = boardMapper.boardDetail(boardIdx);
+		
+		// 파일 정보
+		List<FileDto> fileList = boardMapper.selectBoardFileList(boardIdx);
+		board.setFileList(fileList);
+		
 		boardMapper.updateHit(boardIdx);
 		return board;
 	}

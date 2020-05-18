@@ -70,4 +70,10 @@
 				FROM DUAL
 			</foreach>) A
 	</insert>
+	
+	<select id="selectBoardFileList" parameterType="int" resultType="kr.inhatc.spring.board.dto.FileDto">
+		SELECT idx, board_idx, original_file_name, ROUND(file_size/1024) as file_size
+		FROM t_file
+		WHERE board_idx = #{boardIdx} AND delete_yn = 'N'
+	</select>
 </mapper>
