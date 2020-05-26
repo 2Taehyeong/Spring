@@ -81,4 +81,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.boardDelete(boardIdx);
 	}
 
+	@Override
+	public FileDto selectFileInfo(int idx, int boardIdx) {
+		FileDto boardFile = boardMapper.selectFileInfo(idx, boardIdx);
+		return boardFile;
+	}
+
 }

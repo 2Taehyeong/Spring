@@ -13,20 +13,20 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.inhatc.spring.board.dto.FileDto;
+import kr.inhatc.spring.member.dto.M_FileDto;
 
 @Component
-public class FileUtils {
+public class M_FileUtils {
 	
-	public List<FileDto> parseFileInfo(int boardIdx, MultipartHttpServletRequest multipartHttpServletRequest){
+	public List<M_FileDto> parseFileInfo(String memberId, MultipartHttpServletRequest multipartHttpServletRequest){
 		
 		if(ObjectUtils.isEmpty(multipartHttpServletRequest)) {
 			return null;
 		}
 		
-		List<FileDto> fileList = new ArrayList<FileDto>();
+		List<M_FileDto> fileList = new ArrayList<M_FileDto>();
 		
-		// 파일이 업로드될 폴더 생성
+		//파일이 업로드될 폴더 생성
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
 		ZonedDateTime current = ZonedDateTime.now();
 		String path = "images/" + current.format(format);
@@ -38,36 +38,37 @@ public class FileUtils {
 		
 		Iterator<String> iter = multipartHttpServletRequest.getFileNames();
 		
+		
 		while(iter.hasNext()) {
 			List<MultipartFile> list = multipartHttpServletRequest.getFiles(iter.next());
 			
-			String originalFileExtenstion = null;
+			String originalFileExtension = null;
 			for (MultipartFile multipartFile : list) {
 				if(multipartFile.isEmpty() == false) {
 					
 					String contentType = multipartFile.getContentType();
 					if(ObjectUtils.isEmpty(contentType)) {
 						break;
-					} else {
+					}else {
 						if(contentType.contains("image/jpeg")) {
-							originalFileExtenstion = ".jpg";
-						} else if(contentType.contains("image/png")) {
-							originalFileExtenstion = ".png";
-						} else if(contentType.contains("image/gif")) {
-							originalFileExtenstion = ".gif";
+							originalFileExtension = ".jpg";
+						} else if(contentType.contains("image/jpg")) {
+							originalFileExtension = ".png";
+						} else if(contentType.contains("image/jpg")) {
+							originalFileExtension = ".gif";
 						} else {
 							break;
 						}
 					}
 					
-					String newFileName = Long.toString(System.nanoTime()) + originalFileExtenstion;
+					String newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
 					
-					FileDto boardFile = new FileDto();
-					boardFile.setBoardIdx(boardIdx);
-					boardFile.setFileSize(multipartFile.getSize());
-					boardFile.setOriginalFileName(multipartFile.getOriginalFilename());
-					boardFile.setStoredFilePath(path + "/" + newFileName);
-					fileList.add(boardFile);
+					M_FileDto memberFile = new M_FileDto();
+					memberFile.setMemberId(memberId);
+					memberFile.setFileSize(multipartFile.getSize());
+					memberFile.setOriginalFileName(multipartFile.getOriginalFilename());
+					memberFile.setStoredFilePath(path + "/" + newFileName);
+					fileList.add(memberFile);
 					
 					file = new File(path + "/" + newFileName);
 					try {

@@ -27,4 +27,6 @@ public interface BoardMapper {
 
 	List<FileDto> selectBoardFileList(int boardIdx);
 
+	FileDto selectFileInfo(int idx, int boardIdx);
+
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>멤버</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}"></link>
+
+</head>
+<body>
+	<div class="container">
+		<h2>멤버 목록</h2>
+		<table class="board_list">
+			<colgroup>
+				<col width="15%"/>
+				<col width="*"/>
+				<col width="20%"/>
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th scope="col">아이디</th>
+					<th scope="col">이름</th>
+                    <th scope="col">생성일자</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<!-- 데이터가 있을 경우 -->
+				<tr th:if="${#lists.size(list)} > 0" th:each="vo :${list}">
+					
+					<td><a href="/member/memberDetail?memberId=" th:attrappend="href=${vo.memberId}" th:text="${vo.memberId}"></a>
+					</td>
+					<td th:text="${vo.name}"></td>
+					<td th:text="${vo.joinDate}"></td>
+				</tr>
+
+				<!-- 데이터가 없을 경우 -->
+				<tr th:unless="${#lists.size(list)} > 0">
+					<td colspan="4">조회된 결과가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- 멤버등록 버튼 -->
+		<a href="/member/memberWrite" class="btn">등록</a>
+	</div>
+</body>
+</html>

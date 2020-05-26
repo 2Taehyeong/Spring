@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.inhatc.spring.member.mapper.MemberMapper">
+	<!-- 멤버 리스트 불러오기 -->
+    <select id ="memberList" resultType="kr.inhatc.spring.member.dto.MemberDto">
+        SELECT member_id, email, enabled, 
+        	TO_CHAR(join_date, 'YYYY-MM-DD') AS join_date, name, pw, role
+        FROM MEMBER
+        ORDER BY member_id DESC
+    </select>
+    
+    <!-- 멤버 등록 -->
+    <insert id="memberInsert" parameterType="kr.inhatc.spring.member.dto.MemberDto">
+    		
+    	INSERT INTO MEMBER (member_id, email, enabled, join_date, name, pw, role)
+    	VALUES (#{memberId}, #{email}, #{enabled}, sysdate, #{name}, #{pw}, #{role})
+    </insert>
+    
+    <!-- 멤버 상세 정보 -->
+    <select id ="memberDetail" parameterType="String" resultType="kr.inhatc.spring.member.dto.MemberDto">
+        SELECT member_id, email, enabled, TO_CHAR(join_date, 'YYYY-MM-DD') AS join_date , name, pw, role
+        FROM MEMBER
+        WHERE member_id = #{memberId}
+    </select>
+    
+    <!-- 멤버 정보 수정 -->
+    <update id ="memberUpdate" parameterType="kr.inhatc.spring.member.dto.MemberDto">
+        UPDATE MEMBER
+        SET email = #{email},
+        	enabled = #{enabled},
+        	name = #{name},
+        	pw = #{pw},
+        	role = #{role}        	
+        WHERE member_id = #{memberId}
+    </update>
+    
+    <!-- 멤버 삭제 -->
+    <delete id ="memberDelete" parameterType="String">
+        DELETE FROM MEMBER
+        WHERE member_id = #{memberId}
+    </delete>
+    
+    
+    <!-- 프로필 사진 업로드 -->
+    <insert id="memberFileInsert" parameterType="kr.inhatc.spring.member.dto.M_FileDto">
+    	INSERT INTO MFILE(
+    		idx, 
+    		member_id, 
+    		original_file_name, 
+    		stored_file_path, 
+    		file_size, 
+    		create_datetime
+    	)
+    	
+    	SELECT mfile_seq.nextval, A.* FROM(
+    		<foreach item="item" collection="list" separator="UNION ALL">
+    			SELECT #{item.memberId} as member_id,
+    					#{item.originalFileName} as original_file_Name,
+    					#{item.storedFilePath} as stored_file_Path,
+    					#{item.fileSize} as file_size,
+    					sysdate
+    				FROM DUAL    		
+    		</foreach>) A
+    </insert>
+    
+    <!-- 프로필 사진 리스트 불러오기 --> 
+    <select id ="selectMemberFileList" parameterType="String" resultType="kr.inhatc.spring.member.dto.M_FileDto">
+        SELECT idx, member_id, original_file_name, stored_file_path, ROUND(file_size/1024) as file_size
+        FROM MFILE
+        WHERE delete_yn = 'N' AND member_id = #{memberId}
+    </select>
+    
+    <!-- 프로필사진 다운로드 (정보 불러오기) -->
+    <select id="selectFileInfo" parameterType="map" resultType="kr.inhatc.spring.member.dto.M_FileDto">
+    	SELECT original_file_name, stored_file_path, file_size
+    	FROM MFILE
+    	WHERE idx = #{idx} AND member_id = #{memberId} AND delete_yn = 'N'
+    </select>
+</mapper>
