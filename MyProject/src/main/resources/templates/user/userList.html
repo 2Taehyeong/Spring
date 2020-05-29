@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사용자 리스트</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+	<div class="container">
+		<h2>사용자 리스트</h2>
+		<table class="board_list">
+			<colgroup>
+				<col width="10%"/>
+				<col width="10%"/>
+				<col width="20%"/>
+				<col width="20%"/>
+				<col width="20%"/>
+				<col width="20%"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">아이디</th>
+					<th scope="col">패스워드</th>
+					<th scope="col">이름</th>
+					<th scope="col">이메일</th>
+					<th scope="col">권한</th>
+					<th scope="col">가입일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 조건을 만족할때 if -->
+				<tr th:if="${#lists.size(list)} > 0" th:each="vo : ${list}">
+					<td>
+						<a href="/user/userDetail/" th:attrappend="href=${vo.id}" th:text="${vo.id}"></a>
+					</td>
+					<td th:text="${vo.pw}"></td>
+					<td th:text="${vo.name}"></td>
+					<td th:text="${vo.email}"></td>
+					<td th:text="${vo.role}"></td>
+					<td th:text="${vo.joinDate}"></td>
+				</tr>
+				<!-- 조건을 만족하지 않을때 unless -->
+				<tr th:unless="${#lists.size(list)} > 0">
+					<td colspan="5">조회된 결과가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/user/userInsert" class="btn">사용자 추가</a>
+	</div>
+</body>
+</html>

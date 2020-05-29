@@ -37,10 +37,10 @@ public class BoardController {
 	private BoardService boardService;
 	// 컨트롤러를 불러올 때 서비스를 불러옴
 	
-	@RequestMapping("/")
-	public String hello() {
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String hello() {
+//		return "index";
+//	}
 	
 	/*
 	@RequestMapping("/board/boardList.do")
