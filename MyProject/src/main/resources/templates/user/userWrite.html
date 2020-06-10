@@ -1,39 +1,91 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>사용자 등록</title>
-<link rel="stylesheet" th:href="@{/css/style.css}"></link>
-</head>
-<body>
-	<div class="container">
-		<h2>사용자 등록</h2>
-		
-		<form id="frm" name="frm" method="POST" action="/user/userInsert">
-			<table class="board_detail">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" id="id" name="id"/></td>
-				</tr>
-				<tr>
-					<td>패스워드</td>
-					<td><input type="text" id="pw" name="pw"/></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td><input type="text" id="name" name="name"/></td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td><input type="text" id="email" name="email"/></td>
-				</tr>
-				<tr>
-					<td>권한</td>
-					<td><input type="text" id="role" name="role"/></td>
-				</tr>
-			</table>
-			<input type="submit" id="submit" value="저장" class="btn">
-		</form>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+
+	<div class="mt-2">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card">
+						<header class="card-header">
+							<h4 class="card-title mt-2">사용자 정보 등록</h4>
+						</header>
+						<article class="card-body">
+							<form action="/user/userInsert" method="post">
+								<div class="form-group row">
+									<label for="inputEmail3" class="col-sm-2 control-label">아이디</label>
+									<div class="col-sm-10">
+										<input name="id" type="text" class="form-control"
+											id="inputEmail3" placeholder="아이디를 입력하세요.">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="inputEmail3" class="col-sm-2 control-label">패스워드</label>
+									<div class="col-sm-10">
+										<input name="pw" type="password" class="form-control"
+											id="inputEmail3" placeholder="비밀번호를 입력하세요.">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="inputEmail3" class="col-sm-2 control-label">이름</label>
+									<div class="col-sm-10">
+										<input name="name" type="text" class="form-control"
+											id="inputEmail3" placeholder="이름을 입력하세요.">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="inputEmail3" class="col-sm-2 control-label">이메일</label>
+									<div class="col-sm-10">
+										<input name="email" type="email" class="form-control"
+											id="inputEmail3" placeholder="Email을 입력하세요.">
+									</div>
+								</div>
+								<fieldset class="form-group">
+									<div class="row">
+										<label for="inputPassword3" class="col-sm-2 control-label">사용여부</label>
+										<div class="col-sm-10">
+											<th:block th:each="enabledName : ${map.enabledList}">
+												<div class="form-check">
+													<input name="enabled" type="radio" class="form-check-input"
+														th:value="${enabledName}"> <label
+														class="form-check-label" th:text="${enabledName}"></label>
+												</div>
+											</th:block>
+										</div>
+									</div>
+								</fieldset>
+								<div class="form-group row">
+									<label for="inputEmail3" class="col-sm-2 control-label">권한</label>
+									<div class="col-sm-10">
+										<select name="role" id="inputState" class="form-control">
+											<th:block th:each="authorityName : ${map.authorityList}">
+												<option th:value="${authorityName}"
+													th:text="${authorityName}"></option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-primary">Sign in</button>
+									</div>
+								</div>
+							</form>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</body>
-</html>
+</div>

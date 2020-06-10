@@ -17,6 +17,7 @@
 				<li class="nav-item active"><a class="nav-link" href="/">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/test/testPage">테스트</a></li>
 				<li class="nav-item"><a class="nav-link" href="/user/userList">사용자</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -28,13 +29,16 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Something else here</a>
 					</div></li>
-				<li class="nav-item"><a class="nav-link disabled" href="#"
-					tabindex="-1" aria-disabled="true">Disabled</a></li>
+			
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<button class="btn btn-outline-primary btn-sm" type="button">
+					<a th:href="@{/login/login}" class="text-white">로그인</a>
+				</button>
+				&nbsp;
+				<button class="btn btn-outline-danger btn-sm" type="button">
+					<a th:href="@{/login/logout}" class="text-white">로그아웃</a>
+				</button> 
 			</form>
 		</div>
 	</nav>

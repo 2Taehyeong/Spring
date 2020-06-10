@@ -51,6 +51,12 @@ public class BoardController {
 		return mv;
 	}
 	*/
+	
+	@RequestMapping("/test/testPage")
+	public String testPage() {
+		return "/test/testPage";
+	}
+	
 	// model : controller -> web(html)
 	@RequestMapping("/board/boardList")
 	public String boardList(Model model) {
