@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
 <head>
-<meta charset="UTF-8">
 <title>시큐리티 테스트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-	<h1>죄솝합니다. 페이지에 대한 접근 권한이 없네요.</h1>
-	<h3>다시 로그인하세요</h3>
-	<h4>다시 로그인을 원하시면 <a th:href="@{/login/login}">여기</a>를 누르세요.</h4>
-	
-</body>
+<div layout:fragment="content">
+	<div class="mt-2">
+		<div class="container">
+			<h1>죄솝합니다. 페이지에 대한 접근 권한이 없네요.</h1>
+			<h3>다시 로그인하세요</h3>
+			<h4>
+				다시 로그인을 원하시면 <a th:href="@{/login/login}">여기</a>를 누르세요.
+			</h4>
+		</div>
+	</div>
+</div>
+
 </html>

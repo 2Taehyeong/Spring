@@ -1,8 +1,11 @@
 package kr.inhatc.spring.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
@@ -19,7 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		security.authorizeRequests().antMatchers("/user/**").hasAnyRole("MEMBER", "ADMIN");
 		
 		// ADMIN 권한이 있는 사용자 접근 경로
-		security.authorizeRequests().antMatchers("/board/**").hasRole("ADMIN");
+//		security.authorizeRequests().antMatchers("/board/**").hasRole("ADMIN");
+		security.authorizeRequests().antMatchers("/board/**").hasRole("MEMBER");
 		
 		// RESTfull을 사용하기 위해서는 비활성화
 		security.csrf().disable();
@@ -35,4 +39,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		
 	}
 
+	/**
+	 * <pre>
+	 * 1. 개요 : 패스워드에 암호화 처리
+	 * 2. 처리내용 : 암호화 처리
+	 * </pre>
+	 * @Method Name : passwordEncoder
+	 * @return
+	 */
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
 }

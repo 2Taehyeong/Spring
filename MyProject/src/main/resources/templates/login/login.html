@@ -1,29 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
 
 <head>
 <title>시큐리티 테스트</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
-<body th:align="center">
-	<h1>로그인</h1>
-	<form method="post">
-		<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
-			<tr>
-				<td bgcolor="orange">아이디</td>
-				<td><input type="text" name="username" /><td>
-			</tr>
-			<tr>
-				<td bgcolor="orange">비밀번호</td>
-				<td><input type="password" name="password" /><td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center"> 
-					<input type="submit" value="로그인" />
-				<td>
-			</tr>
-		</table>
-	</form>
-</body>
+<div layout:fragment="content">
+	<div class="mt-2">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card">
+						<header class="card-header">
+							<h4 class="card-title mt-2">로그인</h4>
+						</header>
+						<article class="card-body">
+							<form method="post">
+								<div class="form-group row">
+									<table class="table table-hover">
+										<tr>
+											<td bgcolor="darkgrey">아이디</td>
+											<td><input type="text" name="username" style="width: 300px"/></td>
+										</tr>
+										<tr>
+											<td bgcolor="darkgrey">비밀번호</td>
+											<td><input type="password" name="password" style="width: 300px"/></td>
+										</tr>
+										<tr>
+											<td colspan="2" align="left"><input type="submit"
+												value="로그인" class="btn btn-secondary"
+												style="width: 150px; height: 50px;" />
+										</tr>
+									</table>
+								</div>
+							</form>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </html>

@@ -11,10 +11,16 @@ public class LoginController {
 
 	@GetMapping("/login/login")
 	public void login() {
+		
 	}
 	
 	@GetMapping("/login/accessDenied")
 	public void accessDenied() {
+		
 	}
 	
+	@GetMapping("/login/logout")
+	public void logout() {
+		
+	}
 }

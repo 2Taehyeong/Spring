@@ -2,23 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/default">
-
+<head>
+<meta charset="utf-8" />
+<title>Kakao 지도 시작하기</title>
+</head>
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
+
 <th:block layout:fragment="script">
 </th:block>
 
 <div layout:fragment="content">
+	<div class="mt-2">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card">
+						<header class="card-header">
+							<h4 class="card-title mt-2">주변 식당</h4>
+						</header>
+						<article class="card-body">
+							<div id="map" style="width: 100%; height: 500px;"></div>
 
-	<div class="container">
-		<h2>테스트 페이지입니다.</h2>
-		
-		
-		
+							<script type="text/javascript"
+								src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ace5872bb34cb15e366677df3f6fc21e&libraries=services"></script>
+							<script>
+								// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+								var infowindow = new kakao.maps.InfoWindow({
+									zIndex : 1
+								});
+
+								var mapContainer = document
+										.getElementById('map'), // 지도를 표시할 div 
+								mapOption = {
+									center : new kakao.maps.LatLng(37.451783,
+											126.657139), // 지도의 중심좌표
+									level : 3
+								// 지도의 확대 레벨
+								};
+
+								// 지도를 생성합니다    
+								var map = new kakao.maps.Map(mapContainer,
+										mapOption);
+
+								// 장소 검색 객체를 생성합니다
+								var ps = new kakao.maps.services.Places(map);
+
+								// 카테고리로 은행을 검색합니다
+								ps.categorySearch('FD6', placesSearchCB, {
+									useMapBounds : true
+								});
+
+								// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+								function placesSearchCB(data, status,
+										pagination) {
+									if (status === kakao.maps.services.Status.OK) {
+										for (var i = 0; i < data.length; i++) {
+											displayMarker(data[i]);
+										}
+									}
+								}
+
+								// 지도에 마커를 표시하는 함수입니다
+								function displayMarker(place) {
+									// 마커를 생성하고 지도에 표시합니다
+									var marker = new kakao.maps.Marker({
+										map : map,
+										position : new kakao.maps.LatLng(
+												place.y, place.x)
+									});
+
+									// 마커에 클릭이벤트를 등록합니다
+									kakao.maps.event
+											.addListener(
+													marker,
+													'click',
+													function() {
+														// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+														infowindow
+																.setContent('<div style="padding:5px;font-size:12px;">'
+																		+ place.place_name
+																		+ '</div>');
+														infowindow.open(map,
+																marker);
+													});
+								}
+							</script>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
 </div>
 </html>

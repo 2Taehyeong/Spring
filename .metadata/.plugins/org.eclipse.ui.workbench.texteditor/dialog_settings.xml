@@ -6,8 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Using ge"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="파일 선택"/>
+			<item value="css"/>
+			<item value="cs"/>
+			<item value="변경 전"/>
 			<item value="using ge"/>
 			<item value="using"/>
 			<item value="Using"/>
@@ -19,10 +23,6 @@
 			<item value="using gener"/>
 			<item value="&gt; 크기"/>
 			<item value="update"/>
-			<item value="memberId"/>
-			<item value="member"/>
-			<item value="board"/>
-			<item value="path"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

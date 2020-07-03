@@ -28,6 +28,6 @@ public class Users {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
 	private Date joinDate;
-	private String  enabled;
+	private String enabled;
 	private String role;
 }
